@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #circleBox {
+            position: relative;
+            width: 400px;
+            height: 300px;
+            background-color: white;
+            border: dashed 2px gray;
+            overflow: hidden;
+
+        }
+
+        .circle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-radius: 50%;
+            opacity: 0.6;
+        }
+
+        .big {
+            width: 80px;
+            height: 80px;
+        }
+
+        .medium {
+            width: 50px;
+            height: 50px;
+        }
+
+        .small {
+            width: 20px;
+            height: 20px;
+        }
+
+        .red {
+            background-color: red;
+        }
+
+        .green {
+            background-color: green;
+        }
+
+        .blue {
+            background-color: blue;
+        }
+
+        .yellow {
+            background-color: yellow;
+        }
+
+        .purple {
+            background-color: purple;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="circleBox">
+        <div class="circle big green" style="top: 5%; left: 50%"></div>
+        <div class="circle big yellow" style="top: 95%; left: 15%"></div>
+        <div class="circle medium red" style="top: 30%; left: 80%"></div>
+        <div class="circle small red" style="top: 0%; left: 40%"></div>
+        <div class="circle small purple" style="top: 60%; left: 20%"></div>
+    </div>
+
+    <form id="generateForm">
+        <select id="numberSelect">
+            <option>5</option>
+            <option>20</option>
+            <option>40</option>
+            <option>60</option>
+            <option>200</option>
+        </select>
+        <button>Generate</button>
+    </form>
+
+    <script>
+        // Quero gerar o numero escolhido de circulos
+        // com tamanho aleatorio entre small, medium e big
+        // uma das 5 cores aleatorias
+        // e uma posicao aleatoria entre 0 e 95% da circleBox
+
+        // 1 - Criar um eventListener para o submit do form e aplicar o preventDefault
+        // 2 - Gerar um circulo
+        // 3 - Criar um conjunto de valores em JS para poder escolher
+        //     por exemplo um array de cores e um array de tamanhos
+        // 4 - Gerar um circulo com uma cor aleatoria de entre as 5
+        // 5 - Gerar um circulo com um tamanho aleatorio de entre os 3
+        // 6 - Gerar um circulo numa posicao aleatoria
+
+        function randomInt(min, max) {
+            return parseInt(Math.random() * (max - min + 1)) + min;
+        }
+
+        function generateRandomCircle() {
+            const randomColorIndex = randomInt(0, colorClasses.length - 1);
+            const randomColorClass = colorClasses[randomColorIndex];
+
+            const randomSizeIndex = randomInt(0, sizeClasses.length - 1);
+            const randomSizeClass = sizeClasses[randomSizeIndex];
+
+            const randomTopPosition = randomInt(0, 95);
+            const randomLeftPosition = randomInt(0, 95);
+
+
+            const circle = `<div class="circle ${randomSizeClass} ${randomColorClass}" 
+                            style="top: ${randomTopPosition}%; left: ${randomLeftPosition}%">
+                            </div>`;
+            // alert(circle);
+            circleBox.innerHTML += circle;
+        }
+
+        const generateForm = document.querySelector("#generateForm");
+        const numberSelect = document.querySelector("#numberSelect");
+        const circleBox = document.querySelector("#circleBox");
+
+        const colorClasses = ["red", "green", "blue", "yellow", "purple"];
+        const sizeClasses = ["small", "medium", "big"];
+
+        generateForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            circleBox.innerHTML = "";
+            for (let i = 0; i < numberSelect.value; i++) {
+                generateRandomCircle();
+            }
+        });
+
+        circleBox.addEventListener("click", function (event) {
+            if (!event.target.classList.contains("circle")) {
+                return;
+            }
+        });
+
+        // TPC:
+        // 1 - vejam cuidado e tragam duvidas na segunda senao perceberam alguma coisa
+        // 2 - alterar o innerHTML por document.createElement
+        // 3 - acrescentem uma feature ao vosso gosto
+        // por exemplo: carregar num circulo muda para outro tamanho
+
+    </script>
+</body>
+
+</html>

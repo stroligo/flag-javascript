@@ -1,0 +1,133 @@
+body {
+  background: #102e44;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+section {
+  background: #fff;
+  width: 70%;
+  padding: 2rem;
+  border-radius: 8px;
+}
+section .container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0 1rem;
+}
+
+h3 {
+  margin: 0;
+  padding: 0;
+  line-height: normal;
+  padding-bottom: 0.2rem;
+  color: #102e44;
+}
+
+#form {
+  background: #f8f4ed;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-radius: 8px;
+  height: fit-content;
+}
+
+#list {
+  background: #f8f4ed;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-radius: 8px;
+  height: fit-content;
+}
+
+#circleBox {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  background-color: rgb(255, 255, 255);
+  border: dashed 2px gray;
+  overflow: hidden;
+  transition: top;
+}
+
+.circle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.big {
+  width: 60px;
+  height: 60px;
+}
+
+.medium {
+  width: 40px;
+  height: 40px;
+}
+
+.small {
+  width: 20px;
+  height: 20px;
+}
+
+.red {
+  background-color: red;
+}
+.green {
+  background-color: green;
+}
+.blue {
+  background-color: blue;
+}
+.yellow {
+  background-color: yellow;
+}
+.purple {
+  background-color: purple;
+}
+.orange {
+  background-color: orange;
+}
+.pink {
+  background-color: pink;
+}
+.coral {
+  background-color: coral;
+}
+.turquoise {
+  background-color: turquoise;
+}
+.magenta {
+  background-color: magenta;
+}
+.lime {
+  background-color: lime;
+}
+.cyan {
+  background-color: cyan;
+}
+.fuchsia {
+  background-color: fuchsia;
+}
+.pink {
+  background-color: pink;
+}
+.salmon {
+  background-color: salmon;
+}
+.aqua {
+  background-color: aqua;
+}
+.violet {
+  background-color: violet;
+}
