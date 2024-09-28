@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="src/css/main.css">
+
+
+</head>
+
+<body>
+    <div id="slider">
+        <img id="sliderimg">
+        <div id="caption"></div>
+        <div class="controller">
+            <button id="prev"> Prev </button>
+            <button id="next"> Next </button>
+        </div>
+
+    </div>
+    <div>
+        <input type="text" id="inputText" placeholder="Digite um nome:">
+        <button id="sendButton">Enviar</button>
+        <div id="result"></div>
+    </div>
+    <script>
+        const inputText = document.getElementById("inputText");
+        const sendButton = document.getElementById("sendButton");
+        const result = document.getElementById("result");
+
+        sendButton.addEventListener("click", function () {
+            if (inputText.value == "") {
+                inputText.style.color = "red"; // Define a cor do texto do input
+                inputText.placeholder = "Digite o nome por favor"; // Altera o placeholder
+            } else { result.innerHTML = ("Bem vindo: " + inputText.value) }
+
+        })
+
+    </script>
+
+    <script src="src/js/main.js"> </script>
+</body>
+
+</html>

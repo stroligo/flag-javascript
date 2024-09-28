@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <ul id="nameList">
+        <li>Gabriel</li>
+        <li>Lucas</li>
+        <li>Pedro</li>
+        <li>Vitor</li>
+        <li>Bruno</li>
+    </ul>
+    <p>Você selecionou: <span id="nameSpan"></span></p>
+
+    <script>
+        const nameList = document.querySelectorAll("#nameList li");
+        const nameSpan = document.querySelector("#nameSpan");
+
+        for (let i = 0; i < nameList.length; i++) {
+            nameList[i].addEventListener("click", () => {
+                nameSpan.innerHTML = nameList[i].textContent;
+            });
+        }
+    </script>
+</body>
+
+</html>

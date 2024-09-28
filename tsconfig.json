@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "outDir": "./dist", // Diretório onde os arquivos .js serão gerados
-    "rootDir": "./src/ts", // Diretório onde os arquivos .ts estão localizados
+    "rootDir": "./src", // Diretório raiz para o código e testes
     "target": "es2016", // Versão do JavaScript de saída
     "module": "commonjs" // Sistema de módulos
   },

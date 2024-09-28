@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        #area {
+            width: 400px;
+            height: 100px;
+            padding: 20px;
+            margin-bottom: 1.5rem;
+            background-color: beige;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .btn {
+            background-color: rgb(98, 98, 98);
+            color: white;
+            border-radius: 4px;
+            padding: 4px 8px;
+            cursor: pointer;
+        }
+
+        .btn:active,
+        .btn:hover {
+            background-color: rgb(18, 105, 187);
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>Exemplo da aula</h3>
+    <div id="area">
+    </div>
+
+    <div>
+        <button id="btnMinus10" class="btn">-10</button>
+        <button id="btnMinus1" class="btn">-1</button>
+        <button id="btnAdd1" class="btn">+1</button>
+        <button id="btnAdd10" class="btn">+10</button>
+    </div>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let counter = 0;
+            let area = document.getElementById("area");
+
+            function refresh() {
+                area.innerHTML = counter;
+
+                if (counter >= 100) {
+                    area.style.color = "green";
+                } else if (counter <= -100) {
+                    area.style.color = "pink";
+                } else if (counter >= 0) {
+                    area.style.color = "blue";
+                } else {
+                    area.style.color = "red";
+                }
+            }
+
+            function newValue(value) {
+                counter += value;
+                refresh();
+            }
+
+            const btnMinus1 = document.getElementById("btnMinus1");
+            const btnMinus10 = document.getElementById("btnMinus10");
+            const btnAdd1 = document.getElementById("btnAdd1");
+            const btnAdd10 = document.getElementById("btnAdd10");
+
+            btnMinus1.addEventListener("click", () => newValue(-1));
+            btnMinus10.addEventListener("click", () => newValue(-10));
+            btnAdd1.addEventListener("click", () => newValue(1));
+            btnAdd10.addEventListener("click", () => newValue(10));
+
+            // Exibe o valor inicial
+            refresh();
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <input type="password" id="inputtext" placeholder="Digite sua senha">
+        <button id="btnsend">Enviar</button>
+    </div>
+
+    <div id="alertarea"></div>
+
+    <script>
+        const inputText = document.getElementById("inputtext");
+        const alertArea = document.getElementById("alertarea");
+        const btnSend = document.getElementById("btnsend");
+
+        function checkPasswordStrength(password) {
+            // Regex para detectar se há letras e números
+            const lettersAndNumbers = /^[A-Za-z0-9]*$/;
+            // Regex para detectar caracteres especiais
+            const specialCharacters = /[^A-Za-z0-9]/g;
+
+            // Contar quantos caracteres especiais existem
+            const specialCharCount = (password.match(specialCharacters) || []).length;
+
+            if (lettersAndNumbers.test(password)) {
+                return 'Fraca'; // Só contém letras e números
+            } else if (specialCharCount >= 4) {
+                return 'Forte'; // Contém pelo menos 4 caracteres especiais
+            } else {
+                return 'Média'; // Contém pelo menos 1 caracter especial, mas menos de 4
+            }
+        }
+        
+        btnSend.addEventListener("click", () => {
+            const password = inputText.value;
+            const passwordLength = password.length;
+
+            if (passwordLength >= 6 && passwordLength <= 15) {
+                const strength = checkPasswordStrength(password);
+                alertArea.innerHTML = `Password aceito. Força: ${strength}`;
+            } else {
+                alertArea.innerHTML = "O Password deve estar entre 6 e 15 caracteres";
+            }
+        });
+    </script>
+</body>
+
+</html>
+
+
+<!-- Exercicio:
+Password Strength Password valida tem entre 6 e 15 caracteres
+
+Fraca:
+so contem letras e numeros
+Media:
+contem pelo menos 1 caracter que nao e letra ou numero
+Forte:
+contem pelo menos 4 caracteres diferentes que nao sao letras ou numeros -->

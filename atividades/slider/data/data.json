@@ -1,0 +1,41 @@
+{
+  "cachorros": [
+    {
+      "name": "Golden retriever",
+      "img": "src/img/dog2.webp"
+    },
+    {
+      "name": "Labrador",
+      "img": "src/img/dog3.webp"
+    },
+    {
+      "name": "Border collie",
+      "img": "src/img/dog4.webp"
+    },
+    {
+      "name": "Boxer",
+      "img": "src/img/dog5.webp"
+    },
+    {
+      "name": "Bulldog inglês",
+      "img": "src/img/dog6.webp"
+    },
+    {
+      "name": "Poodle",
+      "img": "src/img/dog7.webp"
+    },
+    {
+      "name": "Dálmata",
+      "img": "src/img/dog8.webp"
+    },
+    {
+      "name": "Beagle",
+      "img": "src/img/dog9.webp"
+    },
+
+    {
+      "name": "Vira-lata",
+      "img": "src/img/dog10.webp"
+    }
+  ]
+}

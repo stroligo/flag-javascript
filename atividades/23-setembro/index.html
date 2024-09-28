@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div style="display: flex; flex-direction:column; width:fit-content; gap:1rem;">
+        <a href="http://www.globo.com" id="link"> Acesso ao Globo </a>
+        <input type="password" id="inputtext" placeholder="Digite sua senha">
+        <button id="btnsend">Enviar</button>
+    </div>
+
+    <div id="alertarea"></div>
+
+    <script>
+        const inputText = document.getElementById("inputtext");
+        const alertArea = document.getElementById("alertarea");
+        const link = document.getElementById("link");
+        const btnSend = document.getElementById("btnsend");
+
+        btnSend.addEventListener("click", (event) => {
+            console.log(link)
+        });
+    </script>
+</body>
+
+</html>
