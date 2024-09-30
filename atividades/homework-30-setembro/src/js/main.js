@@ -38,37 +38,38 @@ const maxY = circleBoxHeight - maxSize;
 function randomItem(item) {
   return item[Math.floor(Math.random() * item.length)];
 }
+
 function randomPosition() {
   return Math.floor(Math.random() * 96); /* Max 95 */
 }
 
 form.addEventListener('submit', function (event) {
   event.preventDefault();
+});
 
-  addCircleBtn.addEventListener('click', function () {
-    for (let i = 0; i < numberSelect.value; i++) {
-      addCircle();
-    }
-  });
-  changePositionBtn.addEventListener('click', function () {
-    changeCirclePosition(circleBox);
-  });
-  changeColorBtn.addEventListener('click', function () {
+addCircleBtn.addEventListener('click', function () {
+  for (let i = 0; i < numberSelect.value; i++) {
+    addCircle();
+  }
+});
+changePositionBtn.addEventListener('click', function () {
+  changeCirclePosition(circleBox);
+});
+changeColorBtn.addEventListener('click', function () {
+  changeCircleColor(circleBox);
+});
+// Adicione o evento de clique do botão de mudança de tamanho aqui
+changeSizeBtn.addEventListener('click', function () {
+  changeCircleSize(circleBox);
+});
+changeEverthing.addEventListener('click', function () {
+  changeCirclePosition(circleBox);
+  setTimeout(function () {
     changeCircleColor(circleBox);
-  });
-  // Adicione o evento de clique do botão de mudança de tamanho aqui
-  changeSizeBtn.addEventListener('click', function () {
+  }, 500);
+  setTimeout(function () {
     changeCircleSize(circleBox);
-  });
-  changeEverthing.addEventListener('click', function () {
-    changeCirclePosition(circleBox);
-    setTimeout(function () {
-      changeCircleColor(circleBox);
-    }, 500);
-    setTimeout(function () {
-      changeCircleSize(circleBox);
-    }, 1000);
-  });
+  }, 1000);
 });
 
 /* Gera Random Classes */
@@ -93,7 +94,7 @@ function changeCircleColor(circleBox) {
     item.classList.add(randomItem(colorClasses));
   }
 }
-
+console.log(...colorClasses);
 function changeCircleSize(circleBox) {
   const items = circleBox.children;
   const sizeClassesToRemove = ['small', 'medium', 'big'];
@@ -104,7 +105,6 @@ function changeCircleSize(circleBox) {
     item.classList.add(randomItem(sizeClasses));
   }
 }
-
 function addCircle() {
   const item = document.createElement('div');
   item.classList.add('circle');
@@ -123,8 +123,7 @@ function addCircle() {
 
   item.addEventListener('click', function () {
     item.remove();
-    changeCirclePosition(circleBox);
-
+    /*     changeCirclePosition(circleBox); */
     console.log('Item removido do circleBox');
   });
 }

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #divArea {
+            width: 200px;
+            height: 200px;
+            background-color: rgb(21, 145, 143);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="divArea"></div>
+    <h1>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maiores dignissimos tempora voluptas odio optio ipsum error porro esse unde? Libero, ratione autem nam dicta illum perspiciatis sunt repellendus voluptate adipisci? Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos tempore expedita, impedit fugiat hic veniam, dolores commodi accusamus ipsum exercitationem nisi consequuntur, facilis repellendus vel velit! Nesciunt facilis in perspiciatis.</h1>
+    <script>
+        const divArea = document.getElementById("divArea");
+
+        divArea.addEventListener("click", (event) => {
+            console.log(event.target)
+            divArea.innerText = "Clicou";
+            divArea.style.backgroundColor = "red";
+        })
+        divArea.addEventListener("mouseover", (event) => {
+            console.log(event.target)
+            divArea.innerText = "Mouse em cima";
+            divArea.style.backgroundColor = "blue";
+        })
+        divArea.addEventListener("mouseout", (event) => {
+            console.log(event.target)
+            divArea.innerText = "Mouse fora";
+            divArea.style.backgroundColor = "green";
+        })
+        divArea.addEventListener("scroll", (event) => {
+            console.log(event.target)
+            divArea.innerText = "Scrolou";
+            divArea.style.marginTop = event.target.scrollTop + "px";
+        })
+    </script>
+</body>
+
+</html>
