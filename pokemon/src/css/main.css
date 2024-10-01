@@ -83,19 +83,22 @@ h3 {
   gap: 1rem;
   margin: 1rem 0;
 }
+
 #pokemonQuiz {
   overflow: hidden;
-  height: 500px;
+  height: 80vh;
+  width: 80vw;
+  position: relative;
 }
-#pokemonQuiz > figure {
+#background {
   margin: 0;
   padding: 0;
-  height: 500px;
+  height: 100%;
   width: 100%;
   position: relative;
   overflow: hidden;
 }
-#pokemonQuiz > figure > img {
+#background > img {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -103,7 +106,36 @@ h3 {
   height: 100%;
   object-fit: cover;
   transform: translate(-50%, -50%);
+  z-index: 0;
 }
-.escondido {
+#pokemonSecret {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+#answers {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: blue;
+  padding: 20px;
+  z-index: 10;
+}
+#answers ul {
+  list-style-type: none;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.escondido img {
   filter: invert(1) brightness(0) contrast(100%);
 }
