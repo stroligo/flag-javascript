@@ -2,12 +2,12 @@
 // Captura o ID do Pokémon da URL
 const urlParams = new URLSearchParams(window.location.search);
 // const pokemonId = urlParams.get('ID');
-let currentPokemonId = 2; // ID do Pokémon inicial
+let currentPokemonId = randomPokemonId(); // ID do Pokémon inicial
+let score = 0; // Inicializa o score
 
-/* Função que carrega os detalhes do Pokémon com base no ID */
-async function getPokemonDetails(pokemonId) {
+/* Função Conecta API */
+async function getPokemonAPI(pokemonId) {
   try {
-    // Faz a requisição à API para obter os detalhes do Pokémon
     const response = await fetch(
       `https://pokeapi.co/api/v2/pokemon/${pokemonId}`,
     );
@@ -20,30 +20,29 @@ async function getPokemonDetails(pokemonId) {
     return null;
   }
 }
-
 // Função que seleciona Pokémons aleatórios
-async function getRandomPokemons(correctId) {
-  const allPokemonIds = [...Array(898).keys()].slice(1); // IDs de 1 a 897 (898 Pokémons)
-  const randomIds = new Set();
+async function respostasAleatorias(correctPokemon) {
+  const randomIds = new Set(); /* cria um array que nao pode conter repetidos */
+  randomIds.add(correctPokemon); // Adiciona o nome do Pokemon correto
 
-  // Adiciona o ID correto
-  randomIds.add(correctId);
-
-  // Adiciona 4 IDs aleatórios
-  while (randomIds.size < 5) {
-    const randomId = Math.floor(Math.random() * 898) + 1; // Gerar ID aleatório de 1 a 898
-    if (randomId !== correctId) {
+  while (randomIds.size < 10) {
+    const randomId = randomPokemonId();
+    if (randomId !== correctPokemon) {
       randomIds.add(randomId);
     }
   }
 
-  // Retorna os detalhes dos Pokémons aleatórios
-  return Promise.all([...randomIds].map((id) => getPokemonDetails(id)));
-}
+  const respostasReorganizadas = [];
+  for (const id of randomIds) {
+    respostasReorganizadas.push(getPokemonAPI(id));
+  }
 
+  return Promise.all(respostasReorganizadas);
+}
 // Função que exibe os detalhes do Pokémon na página
-async function loadPokemon(pokemonId) {
-  const pokemonData = await getPokemonDetails(pokemonId);
+async function carregaPokemon(pokemonId) {
+  const pokemonData = await getPokemonAPI(pokemonId);
+
   if (pokemonData) {
     const imgFrontDefault = pokemonData.sprites.front_default;
     const dreamWorldSprite =
@@ -53,71 +52,102 @@ async function loadPokemon(pokemonId) {
       return dreamWorldSprite !== null ? dreamWorldSprite : imgFrontDefault;
     }
 
-    // Atualiza o nome e a imagem do Pokémon
     document.getElementById('pokemonName').innerText =
       pokemonData.name.charAt(0).toUpperCase() + pokemonData.name.slice(1);
     document.getElementById(
       'pokemonSecret',
     ).innerHTML = `<img src="${validaImg()}" alt="${pokemonData.name}">`;
-
-    // Obtém os 5 Pokémons aleatórios (incluindo o correto)
-    const randomPokemons = await getRandomPokemons(pokemonId);
-    updateAnswers(randomPokemons, pokemonData.name);
-  } else {
-    document.getElementById('pokemonName').innerText = 'Pokémon não encontrado';
-    document.getElementById('pokemonSecret').innerHTML = '';
+    escondePokemon();
+    const randomPokemons = await respostasAleatorias(pokemonId);
+    updateRespostas(randomPokemons, pokemonData.name);
   }
 }
-
 // Função que atualiza a lista de respostas
-function updateAnswers(pokemons, correctName) {
-  const answersElement = document.getElementById('answers').querySelector('ul');
+function updateRespostas(pokemons, respostaCerta) {
+  const answersElement = document.getElementById('answers');
   answersElement.innerHTML = ''; // Limpa opções anteriores
 
-  // Embaralha as opções
-  const shuffledPokemons = pokemons.sort(() => Math.random() - 0.5);
+  function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]]; // Troca os elementos
+    }
+    return array;
+  }
 
-  shuffledPokemons.forEach((pokemon) => {
-    const li = document.createElement('li');
-    li.innerText = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
+  const embaralhaPokemon = shuffle(pokemons.slice());
+
+  embaralhaPokemon.forEach((pokemon) => {
+    const button = document.createElement('button');
+    button.innerText =
+      pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
 
     // Adiciona evento de clique
-    li.onclick = () => handleAnswerClick(li, correctName);
+    button.onclick = () => clickResposta(respostaCerta);
 
-    answersElement.appendChild(li);
-  });
-}
+    // Estilo adicional (opcional)
+    button.classList.add('btn');
 
-// Função que trata o clique na resposta
-function handleAnswerClick(selectedLi, correctName) {
-  const allLis = document.querySelectorAll('#answers ul li');
-
-  // Remove a classe 'escondido' do elemento pokemonSecret
-  document.getElementById('pokemonSecret').classList.remove('escondido');
-
-  allLis.forEach((li) => {
-    if (li.innerText === correctName) {
-      li.style.backgroundColor = 'green'; // Cor correta
-    } else {
-      li.style.backgroundColor = 'red'; // Cor incorreta
+    // Adiciona o click score se for a resposta certa
+    if (
+      pokemon.name.trim().toLowerCase() === respostaCerta.trim().toLowerCase()
+    ) {
+      button.addEventListener('click', () => updateScore());
     }
-    li.style.pointerEvents = 'none'; // Desabilita cliques em opções após uma resposta ser dada
+
+    answersElement.appendChild(button);
   });
 }
+// Função que trata o clique na resposta
+function clickResposta(respostaCerta) {
+  const allButtons = document.querySelectorAll('#answers button');
+  const correctText = respostaCerta.trim().toLowerCase(); // Remove espaços e transforma em minúsculas
 
-// Funções para navegar entre Pokémons
-document.getElementById('nextBtn').onclick = () => {
-  currentPokemonId++;
-  loadPokemon(currentPokemonId);
-};
+  allButtons.forEach((button) => {
+    const buttonText = button.innerText.trim().toLowerCase(); // Remove espaços e transforma em minúsculas
 
-document.getElementById('previousBtn').onclick = () => {
-  if (currentPokemonId > 1) {
-    // Impede a navegação abaixo de 1
-    currentPokemonId--;
-    loadPokemon(currentPokemonId);
+    if (buttonText === correctText) {
+      button.classList.remove('btn');
+      button.classList.add('btnCorreta');
+    } else {
+      button.classList.remove('btn');
+      button.classList.add('btnErrada');
+    }
+    button.style.pointerEvents = 'none'; // Desabilita cliques em todas as opções após a resposta ser dada
+  });
+
+  mostraPokemon();
+}
+// Função que atualiza o score
+function updateScore() {
+  score += 1;
+  const scoreElement = document.getElementById('score');
+  scoreElement.innerText = score;
+
+  if (score === 10) {
+    alert('Parabéns! Voce acertou 10 respostas e venceu o jogo!');
+    score = 0;
+    scoreElement.innerText = 0;
   }
-};
+}
+
+// Funções auxiliares
+function randomPokemonId() {
+  return Math.floor(Math.random() * 151) + 1; /* Somente os 151 primeiros */
+}
+function escondePokemon() {
+  document.getElementById('pokemonSecret').classList.add('escondido');
+  document.getElementById('pokemonName').classList.add('escondido');
+}
+function mostraPokemon() {
+  document.getElementById('pokemonSecret').classList.remove('escondido');
+  document.getElementById('pokemonName').classList.remove('escondido');
+}
 
 // Carrega o Pokémon inicial ao abrir a página
-loadPokemon(currentPokemonId);
+carregaPokemon(currentPokemonId);
+// Botao para carregar novo pokemon
+document.getElementById('nextBtn').onclick = () => {
+  escondePokemon();
+  carregaPokemon(randomPokemonId());
+};

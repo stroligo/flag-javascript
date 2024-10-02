@@ -6,34 +6,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz Pokemon</title>
     <link rel="stylesheet" href="src/css/main.css">
+    <link href="https://fonts.cdnfonts.com/css/pokemon-solid" rel="stylesheet">
 </head>
 
 <body>
-    <section>
+    <section style="padding: .5rem;">
 
         <div class="container">
-            <h2 id="pokemonName"></h2> <!-- Exibe o nome do Pokémon -->
+            <!-- Exibe o nome do Pokémon -->
             <div id="pokemonQuiz">
+                <div id="scoreBoard">SCORE: <span id="score">0</span> </div>
                 <div id="pokemonSecret" class="escondido">
 
                 </div>
 
                 <div id="answers">
-                    <ul>
-                        <li>Pokemon 1</li>
-                        <li>Pokemon 2</li>
-                        <li>Pokemon 3</li>
-                    </ul>
+
                 </div>
+
                 <figure id="background">
+                    <div id="pokemonName"></div>
                     <img src="./src/img/quiz.webp" alt="">
                 </figure>
+
+                <div id="controllerQuiz">
+                    <button id="nextBtn">
+                        <img src="./src/img/random-icon.webp" alt="">
+                    </button>
+                </div>
             </div>
-            <div id="controller">
-                <button id="previousBtn">Prev</button>
-                <div><span id="page">1</span> / <span id="totalPages"></span> </div>
-                <button id="nextBtn">Next</button>
-            </div>
+
         </div>
     </section>
 
