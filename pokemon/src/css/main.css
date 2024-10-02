@@ -219,11 +219,12 @@ h3 {
   justify-content: center;
   align-items: center;
   background: #ffcb04;
-  color: #ffcb04;
-  font-family: 'Pokemon Solid', sans-serif;
-  text-shadow: black 1px 0 10px;
-  letter-spacing: 4px;
   cursor: pointer;
+  transition: all 0.2s;
+}
+#nextBtn:hover {
+  background: #ffa304;
+  transition: all 0.2s;
 }
 #nextBtn img {
   width: 15px;
