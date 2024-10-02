@@ -210,7 +210,7 @@ h3 {
   right: 1rem;
   z-index: 10;
 }
-#nextBtn {
+.btnRandom {
   width: fit-content;
   height: fit-content;
   padding: 10px;
@@ -222,7 +222,7 @@ h3 {
   cursor: pointer;
   transition: all 0.2s;
 }
-#nextBtn:hover {
+.btnRandom:hover {
   background: #ffa304;
   transition: all 0.2s;
 }
