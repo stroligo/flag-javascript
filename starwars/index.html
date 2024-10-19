@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+
+<body>
+
+    <div>Star Wars</div>
+    <div id="cardContainer">
+        <h2 id="nomefilms"></h2>
+        <p id="episodeId"></p>
+        <p id="openingCrawl"></p>
+    </div>
+
+
+
+    <button id="btnRefresh">Chama API</button>
+
+
+    <script>
+        //function chamaAPI() {
+        //fetch("https://swapi.dev/api/films/")
+        //.then((response) => response.json())
+        //.then((data) => {
+        //console.log("Carregando API");
+        //loadContent(data.results)
+        // })
+        //.catch((error) => console.log(error));
+        //}
+
+        async function chamaAPI2() {
+            try {
+                const response = await fetch("https://swapi.dev/api/films/");
+                if (!response.ok) {
+                    throw new Error(`Erro ao carregar dados: ${response.statusText}`);
+                }
+                const data = await response.json();
+                console.log("Carregando API");
+                loadContent(data.results)
+            } catch (error) {
+                console.error('Erro ao carregar o arquivo JSON:', error);
+            }
+        }
+
+
+        function loadContent(films) {
+            for (let i = 0; i < films.length; i++) {
+                const title = films[i].title;
+                const opening_crawl = films[i].opening_crawl;
+                const episode_id = films[i].episode_id;
+
+                const cardContainer = document.getElementById("cardContainer");
+                cardContainer.innerHTML += `
+                    <h2>${title}</h2>
+                    <p>${episode_id}</p>
+                    <p>${opening_crawl}</p>
+                `
+            }
+        }
+
+
+
+        const btnRefresh = document.getElementById("btnRefresh");
+        btnRefresh.addEventListener("click", () => {
+            console.log("Chamando API");
+            chamaAPI();
+        });
+
+
+
+    </script>
+</body>
+
+
+</html>
+
+<!-- FUNCAO REPLACE \n para <BR /> -->

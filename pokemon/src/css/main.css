@@ -230,3 +230,9 @@ h3 {
   width: 15px;
   height: 15px;
 }
+
+#pokedetails {
+  background: red;
+  width: 200px;
+  height: 200px;
+}
